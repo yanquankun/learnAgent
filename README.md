@@ -241,16 +241,11 @@ cd video-studio && npm run studio
 
 > 解说脚本默认调用根 `.env` 配置的 DeepSeek 生成口语化讲稿；配音用微软 edge-tts（免费），可通过 `--voice`、`--rate` 调整音色与语速。
 
-### Git LFS（大文件存储）
+### 视频获取（GitHub Release 分发）
 
-视频等大文件通过 [Git LFS](https://git-lfs.com) 管理（规则见 `.gitattributes`，已跟踪 `*.mp4 / *.wav / *.mov / *.mp3`）。克隆本仓库前请先安装：
+全部 44 支教学视频已发布在 Release：**[teaching-videos-v1](https://github.com/yanquankun/learnAgent/releases/tag/teaching-videos-v1)**，文件名与章节目录一一对应，按需下载后放入对应章节目录即可。
 
-```bash
-brew install git-lfs && git lfs install   # macOS
-git clone <仓库地址>                       # LFS 文件会自动拉取
-```
-
-> 注意：GitHub 免费版 LFS 限额为 1GB 存储 + 1GB/月带宽，全量 36+ 支视频（每支约 15MB）接近限额，必要时可购买 LFS 数据包或改用 Release 附件分发视频。
+> 为什么不放进 git 仓库？视频共约 800MB，已配置 Git LFS（见 `.gitattributes`），但国内网络直连 LFS 的 AWS S3 存储上传/下载极不稳定，而 Release 资产走 GitHub 自有节点、速度稳定，因此选择 Release 分发（`.gitignore` 已忽略 `*.mp4`）。本地生成的视频不受影响，仍输出到各章节目录。
 
 ## 协议
 
