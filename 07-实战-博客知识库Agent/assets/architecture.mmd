@@ -1,0 +1,63 @@
+---
+config:
+  theme: default
+  themeCSS: ".nodeLabel p { max-width: none !important; }"
+  flowchart:
+    curve: basis
+    nodeSpacing: 40
+    rankSpacing: 55
+---
+flowchart TB
+    user(("博客读者"))
+    github["GitHub 文章仓库<br/>（md / json / js）"]
+    llm["LLM API<br/>（DeepSeek）"]
+
+    subgraph blog ["你的博客前端"]
+        chat["AI 聊天框<br/>（SSE 流式）"]
+    end
+
+    subgraph server ["阿里云服务器（Docker Compose）"]
+        nginx["Nginx<br/>反向代理 + HTTPS"]
+
+        subgraph apiSvc ["FastAPI Agent 服务"]
+            chatApi["POST /api/chat<br/>（JSON + SSE）"]
+            webhook["POST /api/github/webhook<br/>（签名校验）"]
+            admin["POST /api/admin/reindex"]
+        end
+
+        subgraph core ["Agent 内核"]
+            agent["BlogAgent（LangGraph）<br/>路由→改写→检索→生成→重试"]
+            memory["用户长期记忆（08模块）<br/>后台抽取 + 召回注入"]
+        end
+
+        subgraph data ["数据层"]
+            indexer["增量索引器<br/>解析 → 切片 → Embedding"]
+            qdrant[("Qdrant 向量库<br/>blog_chunks / user_memories")]
+            sqlite[("SQLite<br/>索引账本 / qa_logs / checkpoints")]
+        end
+
+        subgraph obs ["观测与评估"]
+            prom["Prometheus"]
+            grafana["Grafana 看板"]
+            evalset["Ragas 评估集回归"]
+        end
+    end
+
+    user -->|"提问"| chat
+    chat -->|"HTTPS"| nginx --> chatApi --> agent
+    agent -->|"向量检索"| qdrant
+    agent -->|"生成回答"| llm
+    agent -->|"回答 + 来源 + 推荐文章"| chat
+    agent <-->|"读 / 写"| memory --> qdrant
+
+    github -->|"push 事件 Webhook"| webhook --> indexer -->|"upsert / delete"| qdrant
+    admin -->|"全量重建"| indexer
+    apiSvc --> sqlite
+    apiSvc -.->|"指标 / 日志"| prom --> grafana
+    sqlite -.->|"qa_logs 采样"| evalset
+
+    style server fill:#f8fafc,stroke:#94a3b8
+    style blog fill:#eff6ff,stroke:#60a5fa
+    style core fill:#fefce8,stroke:#facc15
+    style data fill:#f0fdf4,stroke:#4ade80
+    style obs fill:#faf5ff,stroke:#c084fc

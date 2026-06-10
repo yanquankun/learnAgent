@@ -18,6 +18,29 @@ flowchart TB
     c1 --> c2 --> c3 --> c4 --> c5
 ```
 
+## 监控流程图（一 ~ 三章：可观测性）
+
+![监控流程图](./assets/monitoring-flow.png)
+
+一次问答请求进来后，同时走三条观测通道，各管一摊、互不替代：
+
+- **结构化日志（绿色）**：每次问答以 JSON 形式落入 qa_logs，靠统一 trace_id 串联，用于回放和定位单条 bad case——它同时也是后续评估集的种子数据来源
+- **链路追踪（黄色）**：OpenTelemetry 给检索/生成等阶段打嵌套 span，到 Jaeger 看瀑布图，回答「这一次请求慢在哪一步」
+- **指标（紫色）**：Counter/Histogram 持续累计，Prometheus 定时抓取 `/metrics`，Grafana 看板回答「服务整体趋势如何」——包括 LLM 应用特有的 token 成本与检索空率
+
+## 评估流程图（四 ~ 五章：质量评估）
+
+![评估流程图](./assets/evaluation-flow.png)
+
+评估是一个闭环，分便宜和贵两层：
+
+- **入口**：从 qa_logs 采样真实问答，人工筛选标注成自建评估集（问题 / 期望来源 / 期望行为）
+- **每次改动都跑（绿色）**：自建回归，秒级、零成本、结果确定，产出 hit@K、拒答正确率与 markdown 报告，CI exit code 即「回归红线」
+- **里程碑才跑（黄色）**：Ragas 用 LLM 当裁判给忠实度等四大指标打分，全面但花钱且有波动，用来指出薄弱维度、指导调优方向
+- **闭环**：回归不通过 → 调切片/检索参数/Prompt → 重新回归；上线后新的真实问答继续落入 qa_logs，反哺评估集
+
+> 流程图源文件：[`assets/monitoring-flow.mmd`](./assets/monitoring-flow.mmd)、[`assets/evaluation-flow.mmd`](./assets/evaluation-flow.mmd)（mermaid 格式）。改动后可重新渲染：`npx -y @mermaid-js/mermaid-cli -i assets/monitoring-flow.mmd -o assets/monitoring-flow.png -w 1500 -s 2 -b white`
+
 ## 章节导览
 
 | 章节 | 核心内容 | 离线可跑 | 需要 Docker |

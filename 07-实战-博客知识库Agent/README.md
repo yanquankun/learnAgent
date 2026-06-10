@@ -14,31 +14,15 @@
 
 ## 目标架构
 
-```mermaid
-flowchart TB
-    subgraph client ["你的博客前端"]
-        chat["AI聊天框 (SSE流式)"]
-    end
-    subgraph server ["阿里云服务器 (Docker Compose)"]
-        nginx["Nginx 反向代理 + HTTPS"]
-        subgraph api ["FastAPI Agent服务"]
-            chatApi["/api/chat"]
-            webhook["/api/github/webhook"]
-            admin["/api/admin/reindex"]
-        end
-        agent["BlogAgent (LangGraph图)"]
-        indexer["增量索引器"]
-        qdrant[("Qdrant")]
-        db[("SQLite<br/>账本/qa_logs/checkpoints")]
-        prom["Prometheus"]
-        grafana["Grafana"]
-    end
-    github["GitHub 文章仓库"]
-    chat -->|HTTPS| nginx --> chatApi --> agent --> qdrant
-    github -->|"push事件 Webhook"| webhook --> indexer --> qdrant
-    api --> db
-    api -.指标.-> prom --> grafana
-```
+![博客知识库 Agent 整体架构图](./assets/architecture.png)
+
+整张图的三条主线：
+
+1. **问答链路（实线，左上 → 右下）**：读者在博客聊天框提问 → Nginx → `/api/chat` → BlogAgent（LangGraph 图）→ Qdrant 向量检索 + LLM 生成 → SSE 流式返回「回答 + 来源 + 推荐文章」；08 模块升级后，Agent 还会在回答前召回用户长期记忆、对话后后台抽取新记忆
+2. **动态 RAG 链路（实线，左侧）**：GitHub 文章仓库 push → Webhook（签名校验）→ 增量索引器（解析 → 切片 → Embedding）→ upsert/delete 到 Qdrant；`/api/admin/reindex` 可触发全量重建
+3. **观测链路（虚线）**：FastAPI 服务输出指标/日志到 Prometheus + Grafana 看板，qa_logs 采样进入 Ragas 评估集做回归
+
+> 架构图源文件：[`assets/architecture.mmd`](./assets/architecture.mmd)（mermaid 格式）。改动后可重新渲染：`npx -y @mermaid-js/mermaid-cli -i assets/architecture.mmd -o assets/architecture.png -w 1600 -s 2 -b white`
 
 ## 章节导览
 

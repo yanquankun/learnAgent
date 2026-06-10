@@ -1,0 +1,44 @@
+---
+config:
+  theme: default
+  flowchart:
+    curve: basis
+    nodeSpacing: 40
+    rankSpacing: 50
+---
+flowchart TB
+    user(("博客读者")) -->|"提问"| chatApi
+
+    subgraph svc ["FastAPI Agent 服务（一次问答请求）"]
+        direction LR
+        chatApi["/api/chat"] --> retrieve["向量检索"] --> gen["LLM 生成"] --> resp["返回回答"]
+    end
+
+    subgraph logs ["（一）结构化日志：事件明细"]
+        jlog["JSON 日志<br/>统一 trace_id 串联"]
+        qalogs[("qa_logs（SQLite）<br/>问题/回答/来源<br/>耗时/token")]
+        replay["问答回放<br/>定位单条 bad case"]
+    end
+
+    subgraph tracing ["（二）链路追踪：单次请求哪里慢"]
+        otel["OpenTelemetry spans<br/>检索/生成嵌套计时"]
+        jaeger["Jaeger 瀑布图"]
+    end
+
+    subgraph metrics ["（三）指标：服务整体趋势"]
+        embed["埋点 + /metrics 端点<br/>Counter / Histogram"]
+        prom["Prometheus 定时抓取"]
+        grafana["Grafana 看板<br/>提问量/延迟<br/>token成本/检索空率"]
+    end
+
+    svc -.->|"每次请求记录"| jlog --> qalogs --> replay
+    svc -.->|"每次请求上报"| otel --> jaeger
+    svc -.->|"持续累计"| embed --> prom --> grafana
+
+    qalogs -->|"种子数据 → 评估集"| evalseed["（四）（五）质量评估<br/>（见评估流程图）"]
+
+    style svc fill:#eff6ff,stroke:#60a5fa
+    style logs fill:#f0fdf4,stroke:#4ade80
+    style tracing fill:#fefce8,stroke:#facc15
+    style metrics fill:#faf5ff,stroke:#c084fc
+    style evalseed fill:#fff7ed,stroke:#fb923c
