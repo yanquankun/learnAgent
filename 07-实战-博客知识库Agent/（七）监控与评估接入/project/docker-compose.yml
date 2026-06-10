@@ -1,0 +1,39 @@
+# 第七章基础设施：Qdrant + Prometheus + Grafana（看板已预配置）
+#   docker compose up -d
+#   Qdrant    : http://localhost:6333/dashboard
+#   Prometheus: http://localhost:9090
+#   Grafana   : http://localhost:3000 （admin/admin）-> Dashboards -> 博客Agent服务看板
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.13.4
+    container_name: learn-agent-qdrant
+    ports:
+      - "6333:6333"   # HTTP API（我们的代码连这里）
+      - "6334:6334"   # gRPC（暂不使用）
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.2.0
+    container_name: learn-agent-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    extra_hosts:
+      # 容器内的 Prometheus 抓宿主机 8000 端口的 uvicorn（Linux 需要这行映射）
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: learn-agent-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus

@@ -1,0 +1,31 @@
+# Prometheus + Grafana 本地监控栈（已预配置好数据源和 Dashboard）
+#   docker compose up -d
+#   Prometheus: http://localhost:9090
+#   Grafana   : http://localhost:3000 （账号/密码 admin/admin，首次会提示改密码，可跳过）
+#   销毁      : docker compose down
+services:
+  prometheus:
+    image: prom/prometheus:v3.2.0
+    container_name: learn-agent-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    extra_hosts:
+      # 让容器里的 Prometheus 能访问宿主机上的 uvicorn 服务（Mac/Win 默认支持，
+      # Linux 需要这行映射）
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: learn-agent-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      # provisioning：用配置文件「预装」数据源和 Dashboard，开箱即看
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus

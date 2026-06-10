@@ -1,0 +1,10 @@
+# Prometheus 抓取配置：每 5 秒抓一次我们服务的 /metrics
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "blog-agent"
+    metrics_path: /metrics
+    static_configs:
+      # host.docker.internal = 宿主机（uvicorn 跑在宿主机的 8000 端口）
+      - targets: ["host.docker.internal:8000"]

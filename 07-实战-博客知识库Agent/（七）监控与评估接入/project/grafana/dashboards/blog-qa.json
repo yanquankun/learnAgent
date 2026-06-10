@@ -1,0 +1,72 @@
+{
+  "title": "博客Agent服务看板",
+  "uid": "blog-agent",
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": { "from": "now-15m", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "title": "QPS（按路由分类：tech / chitchat）",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum by (category) (rate(qa_requests_total{status=\"ok\"}[1m]))",
+          "legendFormat": "{{category}}"
+        },
+        {
+          "expr": "sum (rate(qa_requests_total{status=\"error\"}[1m]))",
+          "legendFormat": "error"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "延迟 P50 / P95（秒）",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(qa_latency_seconds_bucket[5m])))",
+          "legendFormat": "P50"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(qa_latency_seconds_bucket[5m])))",
+          "legendFormat": "P95"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "拒答率（知识库盲区哨兵）",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percentunit", "max": 1, "min": 0 } },
+      "targets": [
+        {
+          "expr": "rate(qa_refused_total[5m]) / sum (rate(qa_requests_total{category=\"tech\"}[5m]))",
+          "legendFormat": "拒答占比"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "检索置信度 P50（持续走低 = 该补文章了）",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "max": 1, "min": 0 } },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(qa_confidence_bucket[5m])))",
+          "legendFormat": "置信度 P50"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39
+}

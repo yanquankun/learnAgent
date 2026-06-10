@@ -1,0 +1,12 @@
+[project]
+name = "mon-04-ragas"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "fastembed>=0.8.0",
+    "langchain-community>=0.3,<0.4",
+    "openai>=2.41.0",
+    "python-dotenv>=1.2.2",
+    "ragas>=0.4",
+    "rich>=14.3.4",
+]

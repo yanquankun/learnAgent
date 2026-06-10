@@ -1,0 +1,7 @@
+[project]
+name = "rag-02-chunking"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=15.0.0",
+]

@@ -1,0 +1,13 @@
+# Qdrant 服务端（实战项目从本章起使用 Docker 模式）
+#   docker compose up -d      启动（数据持久化在 ./qdrant_storage）
+#   docker compose down       停止（数据保留）
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.13.4
+    container_name: learn-agent-qdrant
+    ports:
+      - "6333:6333"   # HTTP API（我们的代码连这里）
+      - "6334:6334"   # gRPC（暂不使用）
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped

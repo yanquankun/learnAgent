@@ -1,0 +1,12 @@
+{"question": "useEffect 为什么会执行两次？", "expected_articles": ["react-useeffect"], "must_contain": ["StrictMode"], "should_refuse": false}
+{"question": "useEffect 依赖数组里放对象有什么坑？", "expected_articles": ["react-useeffect"], "must_contain": ["依赖"], "should_refuse": false}
+{"question": "宏任务和微任务的执行顺序是怎样的？", "expected_articles": ["browser-event-loop"], "must_contain": ["微任务"], "should_refuse": false}
+{"question": "Promise.then 和 setTimeout 谁先执行？", "expected_articles": ["browser-event-loop"], "must_contain": ["微任务"], "should_refuse": false}
+{"question": "怎么用 Docker Compose 部署 Postgres 和 Redis？", "expected_articles": ["docker-compose-deploy"], "must_contain": ["Compose"], "should_refuse": false}
+{"question": "容器删掉之后数据怎么保留？", "expected_articles": ["docker-compose-deploy"], "must_contain": ["卷"], "should_refuse": false}
+{"question": "webpack 迁移到 Vite 要注意什么？", "expected_articles": ["vite-migration"], "must_contain": ["Vite"], "should_refuse": false}
+{"question": "Vite 冷启动为什么快？", "expected_articles": ["vite-migration"], "must_contain": ["esbuild"], "should_refuse": false}
+{"question": "uv 和 pip 有什么区别？", "expected_articles": ["python-env-uv"], "must_contain": ["uv"], "should_refuse": false}
+{"question": "TypeScript 的 infer 怎么用？", "expected_articles": ["typescript-tips"], "must_contain": ["infer"], "should_refuse": false}
+{"question": "Rust 的所有权机制是什么？", "expected_articles": [], "must_contain": [], "should_refuse": true}
+{"question": "推荐几个新加坡的美食店", "expected_articles": [], "must_contain": [], "should_refuse": true}

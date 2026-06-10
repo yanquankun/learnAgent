@@ -1,0 +1,10 @@
+.venv
+__pycache__
+*.db
+qdrant_storage
+grafana
+prometheus*.yml
+docker-compose*.yml
+nginx
+eval/eval_report.md
+.python-version

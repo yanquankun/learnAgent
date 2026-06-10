@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# 课程运行时产物
+qdrant_data/
+
+# 课程运行时产物
+*.db
+chat_memory.db
+qa_logs.db

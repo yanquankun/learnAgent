@@ -1,0 +1,66 @@
+# 生产编排：api + qdrant + prometheus + grafana 全部容器化
+#
+#   服务器上（已 git clone 本项目、已配好 .env）：
+#     docker compose -f docker-compose.prod.yml up -d --build
+#   滚动更新：
+#     git pull && docker compose -f docker-compose.prod.yml up -d --build api
+#
+# 与本地开发的区别：
+#   1. api 也进容器（本地开发时 uvicorn 跑宿主机方便热重载）
+#   2. 服务间用 Docker 网络互访（qdrant:6333），不再依赖宿主机端口
+#   3. Grafana/Prometheus 不暴露公网端口，只绑 127.0.0.1（经 Nginx 或 SSH 隧道访问）
+services:
+  api:
+    build: .
+    container_name: blog-agent-api
+    env_file:
+      - ../../../.env          # 服务器上换成实际路径，或直接写 ./一份生产 .env
+    environment:
+      - QDRANT_URL=http://qdrant:6333   # 覆盖 .env：容器网络内连 qdrant
+    ports:
+      - "127.0.0.1:8000:8000"  # 只绑本机，公网流量必须走 Nginx HTTPS
+    volumes:
+      - ./data:/app/data                 # SQLite（账本/qa_logs/checkpoints）持久化
+      - hf_cache:/home/app/.cache        # embedding 模型缓存（重启不重新下载）
+    depends_on:
+      - qdrant
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:v1.13.4
+    container_name: blog-agent-qdrant
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+    # 不映射端口：只有同一 Docker 网络里的 api 能访问
+
+  prometheus:
+    image: prom/prometheus:v3.2.0
+    container_name: blog-agent-prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./prometheus.prod.yml:/etc/prometheus/prometheus.yml:ro
+      - prom_data:/prometheus
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: blog-agent-grafana
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin   # 上线后立刻改掉！
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+  prom_data:
+  grafana_data:
+  hf_cache:

@@ -1,0 +1,12 @@
+{"question": "useEffect 为什么会执行两次？", "expected_articles": ["react-useeffect"], "must_contain": ["StrictMode"], "should_refuse": false}
+{"question": "React 接口被重复请求是怎么回事", "expected_articles": ["react-useeffect"], "must_contain": ["依赖数组"], "should_refuse": false}
+{"question": "webpack 项目迁移到 Vite 有哪些坑？", "expected_articles": ["vite-migration"], "must_contain": ["CommonJS"], "should_refuse": false}
+{"question": "前端项目冷启动太慢怎么优化", "expected_articles": ["vite-migration"], "must_contain": [], "should_refuse": false}
+{"question": "怎么用 Docker 部署 Postgres 数据库？", "expected_articles": ["docker-compose-deploy"], "must_contain": ["挂载"], "should_refuse": false}
+{"question": "容器删了数据库数据也没了，怎么避免？", "expected_articles": ["docker-compose-deploy"], "must_contain": ["卷"], "should_refuse": false}
+{"question": "宏任务和微任务的执行顺序是什么？", "expected_articles": ["browser-event-loop"], "must_contain": ["微任务"], "should_refuse": false}
+{"question": "Python 用什么管理虚拟环境比较好？", "expected_articles": ["python-env-uv"], "must_contain": ["uv"], "should_refuse": false}
+{"question": "TypeScript 的 infer 关键字怎么用？", "expected_articles": ["typescript-tips"], "must_contain": [], "should_refuse": false}
+{"question": "博客里有讲 Java 的 Spring Boot 教程吗？", "expected_articles": [], "must_contain": [], "should_refuse": true}
+{"question": "K8s Operator 怎么开发？", "expected_articles": [], "must_contain": [], "should_refuse": true}
+{"question": "今天北京天气怎么样", "expected_articles": [], "must_contain": [], "should_refuse": true}

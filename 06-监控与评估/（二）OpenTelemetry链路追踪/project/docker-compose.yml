@@ -1,0 +1,12 @@
+# 本地 Jaeger（链路追踪后端 + 可视化 UI），一条命令起好：
+#   docker compose up -d
+# 用完销毁：
+#   docker compose down
+services:
+  jaeger:
+    image: jaegertracing/jaeger:2.4.0
+    container_name: learn-agent-jaeger
+    ports:
+      - "16686:16686"   # Jaeger UI：浏览器打开 http://localhost:16686
+      - "4318:4318"     # OTLP HTTP：我们的 Python 程序往这里发 span
+    restart: unless-stopped

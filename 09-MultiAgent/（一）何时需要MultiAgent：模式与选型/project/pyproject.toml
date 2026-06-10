@@ -1,0 +1,8 @@
+[project]
+name = "ma-01-patterns"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "langgraph>=1.2.4",
+    "rich>=15.0.0",
+]

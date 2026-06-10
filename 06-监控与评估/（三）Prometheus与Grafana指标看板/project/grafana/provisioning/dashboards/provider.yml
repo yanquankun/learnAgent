@@ -1,0 +1,8 @@
+# Dashboard 自动加载配置：扫描 /var/lib/grafana/dashboards 下的 JSON
+apiVersion: 1
+providers:
+  - name: blog-qa-dashboards
+    folder: ""
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

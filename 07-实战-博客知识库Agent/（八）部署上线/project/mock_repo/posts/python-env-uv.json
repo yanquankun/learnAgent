@@ -1,0 +1,24 @@
+{
+  "title": "Python 虚拟环境管理：从 venv 到 uv",
+  "slug": "python-env-uv",
+  "tags": ["python", "tooling"],
+  "createdAt": "2025-11-15",
+  "sections": [
+    {
+      "heading": "为什么需要虚拟环境",
+      "content": "Python 的包默认安装到全局环境，两个项目依赖同一个包的不同版本时就会互相冲突。虚拟环境为每个项目创建独立的包目录，是 Python 开发的必备实践。前端同学可以类比 node_modules：每个项目有自己的依赖目录，互不干扰。"
+    },
+    {
+      "heading": "传统方案 venv 加 pip 的痛点",
+      "content": "标准库的 venv 创建环境，pip 安装依赖，requirements.txt 记录版本。痛点是：pip 安装速度慢，requirements.txt 不区分直接依赖和间接依赖，没有真正的锁文件机制，跨机器复现环境经常出问题。"
+    },
+    {
+      "heading": "现代方案 uv",
+      "content": "uv 是 Astral 公司用 Rust 编写的 Python 包管理器，把 venv、pip、pyenv、pip-tools 的能力合而为一。uv sync 一条命令完成创建环境加安装依赖，速度比 pip 快 10 到 100 倍。pyproject.toml 声明直接依赖，uv.lock 锁定全部依赖的精确版本，跨机器环境完全可复现。"
+    },
+    {
+      "heading": "常用命令速查",
+      "content": "uv init 初始化项目，uv add 添加依赖并更新锁文件，uv sync 按锁文件安装环境，uv run 在环境中运行命令。PyCharm 从 2024.3 版本开始原生支持 uv 环境，新建解释器时直接选择 uv 类型即可。"
+    }
+  ]
+}
