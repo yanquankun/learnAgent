@@ -219,8 +219,11 @@ __marimo__/
 
 # 课程运行时产物
 qdrant_data/
+qdrant_storage/
 
 # 课程运行时产物
 *.db
+*.db-shm
+*.db-wal
 chat_memory.db
 qa_logs.db
