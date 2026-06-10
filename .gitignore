@@ -227,3 +227,15 @@ qdrant_storage/
 *.db-wal
 chat_memory.db
 qa_logs.db
+
+# video-studio（教学视频生成流水线）
+node_modules/
+video-studio/data/
+video-studio/out/
+video-studio/public/
+video-studio/.remotion/
+.remotion-cache/
+
+# 教学视频不入 git 库（国内网络上传 LFS S3 不可达），
+# 通过 GitHub Release 分发，见 README「章节教学视频」一节
+*.mp4

@@ -55,6 +55,8 @@ flowchart TB
 learnAgent/
 ├── README.md                          # 本文件：总学习路线
 ├── .env.example                       # 全局环境变量模板（API Key 只需配置一次）
+├── .gitattributes                     # Git LFS 规则：mp4/wav 等大文件走 LFS 存储
+├── video-studio/                      # 章节教学视频生成流水线（详见第七节）
 ├── 01-LLM基础/
 │   ├── README.md                      # 模块导读：章节地图与学习建议
 │   ├── （一）认识LLM与第一次API调用/
@@ -192,6 +194,63 @@ flowchart TB
 3. **不要囤积框架教程**：CrewAI、AutoGen、Dify……等你完成 07 实战后，再按需了解，半天就能上手任何新框架
 4. **遇到报错先自己排查 15 分钟**：读错误信息 → 查官方文档 → 再问 AI，这个习惯比任何课程都值钱
 5. **以官方文档为准**：AI 领域迭代极快，本课程所有章节都附了官方文档链接
+
+## 七、章节教学视频生成（video-studio）
+
+每个小节目录下可以生成一支与 README 内容配套的中文教学视频（如 `01-LLM基础/（一）认识LLM与第一次API调用/认识LLM与第一次API调用.mp4`），由 `video-studio/` 流水线自动产出：
+
+```mermaid
+flowchart LR
+    readme["章节 README.md"] --> script["generate_script.py<br/>DeepSeek 提炼解说脚本"]
+    script --> tts["generate_audio.py<br/>edge-tts 中文配音"]
+    tts --> render["build_video.py<br/>Remotion 渲染 1080p mp4"]
+    render --> mp4["章节目录/章节名.mp4"]
+```
+
+### 目录结构
+
+```text
+video-studio/
+├── package.json / remotion.config.ts  # Remotion v4 工程（需 Node 18+）
+├── src/                               # 视频组件：封面/要点/代码/小结 四类场景
+├── pipeline/                          # Python 流水线（uv 管理）
+│   ├── generate_script.py             # ① README → 解说脚本 scenes.json（调 DeepSeek，无 Key 时离线降级）
+│   ├── generate_audio.py              # ② edge-tts 逐场景配音（默认晓晓音色，免费无需 Key）
+│   ├── build_video.py                 # ③ Remotion 渲染，mp4 输出到章节目录
+│   └── make_video.py                  # 一键流水线（支持 --all 批量生成全部章节）
+├── data/                              # 中间产物：各章节 scenes.json（已 gitignore）
+└── public/audio/                      # 中间产物：配音 mp3（已 gitignore）
+```
+
+### 使用方法
+
+```bash
+# 一次性准备
+cd video-studio && npm install        # 安装 Remotion
+cd pipeline && uv sync                # 安装 Python 依赖
+
+# 生成单个章节（约 3~5 分钟，含 LLM 脚本生成 + 配音 + 渲染）
+uv run python make_video.py "../../01-LLM基础/（一）认识LLM与第一次API调用"
+
+# 批量生成全部章节（已有 mp4 的自动跳过；--force 重新生成）
+uv run python make_video.py --all
+
+# 在浏览器里实时预览/调试视频画面样式
+cd video-studio && npm run studio
+```
+
+> 解说脚本默认调用根 `.env` 配置的 DeepSeek 生成口语化讲稿；配音用微软 edge-tts（免费），可通过 `--voice`、`--rate` 调整音色与语速。
+
+### Git LFS（大文件存储）
+
+视频等大文件通过 [Git LFS](https://git-lfs.com) 管理（规则见 `.gitattributes`，已跟踪 `*.mp4 / *.wav / *.mov / *.mp3`）。克隆本仓库前请先安装：
+
+```bash
+brew install git-lfs && git lfs install   # macOS
+git clone <仓库地址>                       # LFS 文件会自动拉取
+```
+
+> 注意：GitHub 免费版 LFS 限额为 1GB 存储 + 1GB/月带宽，全量 36+ 支视频（每支约 15MB）接近限额，必要时可购买 LFS 数据包或改用 Release 附件分发视频。
 
 ## 协议
 

@@ -1,0 +1,12 @@
+[project]
+name = "video-pipeline"
+version = "0.1.0"
+description = "learnAgent 教学视频生成流水线：README → 解说脚本 → edge-tts 配音 → Remotion 渲染"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.50",
+    "edge-tts>=7.0",
+    "mutagen>=1.47",
+    "python-dotenv>=1.0",
+    "json-repair>=0.60.1",
+]

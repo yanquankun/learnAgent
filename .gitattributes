@@ -1,0 +1,9 @@
+# ---------------------------------------------------------------
+# Git LFS：大文件（教学视频/音频）走 LFS 存储，避免撑爆 git 仓库
+# 首次克隆本仓库前请先安装 git-lfs：https://git-lfs.com
+#   brew install git-lfs && git lfs install
+# ---------------------------------------------------------------
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text

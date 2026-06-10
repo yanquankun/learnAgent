@@ -1,0 +1,20 @@
+{
+  "name": "video-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "learnAgent 章节教学视频生成工程（Remotion + edge-tts）",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render ChapterVideo"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.475",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "remotion": "^4.0.475"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "typescript": "^6.0.3"
+  }
+}
