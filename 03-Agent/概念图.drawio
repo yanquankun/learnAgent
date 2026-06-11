@@ -1,0 +1,210 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="concept-map" name="概念图">
+    <mxGraphModel dx="1400" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- BlogAgent 大框 (垫底) -->
+        <mxCell id="frame" value="BlogAgent 雏形 = ReAct 循环 + 工具 + 记忆 (实战项目核心原型)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=none;strokeColor=#999999;strokeWidth=2;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;fontSize=15;fontStyle=1;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="410" y="90" width="1020" height="1010" as="geometry" />
+        </mxCell>
+
+        <mxCell id="title" value="03 · Agent ReAct 循环 · 运行时架构" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#333333;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="700" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- 入口与循环 -->
+        <mxCell id="user" value="用户" style="shape=actor;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fdebd0;strokeColor=#333333;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="140" width="50" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="task" value="用户任务&#10;(自然语言目标)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#76e3c8;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="180" y="150" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="entry" value="Agent 入口&#10;系统提示词:&#10;角色 + 规则 + 工具说明" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="460" y="150" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" value="LLM 思考&#10;Thought (推理下一步)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#d7bde2;strokeColor=#333333;strokeWidth=2;fontSize=16;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="740" y="140" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="decision" value="需要工具?" style="rhombus;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f9e79f;strokeColor=#333333;strokeWidth=2;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="140" width="160" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="action" value="Action&#10;工具名 + 参数(JSON)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="310" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="registry" value="工具注册表&#10;@tool 装饰器自动注册" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="450" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 工具层 -->
+        <mxCell id="t_rag" value="RAG 检索工具&#10;search_blog()" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="730" y="620" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_read" value="读文章工具&#10;read_article()" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="960" y="620" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_list" value="分类列表工具&#10;list_categories()" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="620" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qdrant" value="Qdrant&#10;(02 的向量库)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="770" width="120" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- 回流侧 -->
+        <mxCell id="obs" value="Observation&#10;工具执行结果" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="480" y="450" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="err" value="工具报错&#10;(异常被捕获)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="520" y="600" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 记忆 -->
+        <mxCell id="msgs" value="消息历史&#10;(Thought / Action / Observation 轨迹)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="460" y="880" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="memory" value="记忆管理器&#10;滑动窗口 + LLM 摘要压缩" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="460" y="1000" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 产出 -->
+        <mxCell id="final" value="Final Answer&#10;最终回答" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#a9dfbf;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="150" width="170" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 便签 -->
+        <mxCell id="n_loop" value="ReAct 真循环:&#10;Thought → Action → Observation&#10;护栏: max_iters 最大轮数&#10;stop 序列防模型自演 Observation" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="790" y="330" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n_ragtool" value="把 02 的 RAG 全链路&#10;封装成一个工具函数" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="950" y="770" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n_wf" value="Workflow vs Agent 边界:&#10;步骤可枚举 → 用 Workflow&#10;(更便宜 · 更可控)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n_proto" value="第二章: 手写文本协议 + 正则解析&#10;第三章起: Function Calling&#10;原生 tool_calls" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="300" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n_safe" value="工具安全边界: 白名单&#10;参数校验 · 只读优先&#10;危险操作需人工确认" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="470" width="210" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cap" value="Agent 能力上限 =&#10;工具质量与描述清晰度" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="620" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n_mem" value="两级记忆: 近期完整保留&#10;久远轮次 LLM 摘要压缩&#10;(控制在 token 预算内)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="760" y="990" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- 主数据流 -->
+        <mxCell id="e_user_task" value="下达任务" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="user" target="task">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_task_entry" value="进入 Agent" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="task" target="entry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_entry_llm" value="组装首轮 messages" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="entry" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_llm_dec" value="Thought 结论" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="llm" target="decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_action" value="是 · 调工具" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="decision" target="action">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_final" value="否 · 任务完成" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="decision" target="final">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_action_reg" value="按名称查找" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="action" target="registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reg_trag" value="分发执行" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="registry" target="t_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reg_tread" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="registry" target="t_read">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reg_tlist" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.75;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="registry" target="t_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_trag_qdrant" value="向量检索 top_k" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="t_rag" target="qdrant">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_trag_obs" value="命中 chunks" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.15;exitY=0;entryX=0.7;entryY=1;" edge="1" parent="1" source="t_rag" target="obs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tread_obs" value="结果" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" parent="1" source="t_read" target="obs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tlist_obs" value="结果" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=0;entryX=1;entryY=0.8;" edge="1" parent="1" source="t_list" target="obs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tread_err" value="执行异常" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;dashed=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;entryX=0.5;entryY=1;" edge="1" parent="1" source="t_read" target="err">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1045" y="710" />
+              <mxPoint x="610" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_err_llm" value="错误信息也回流&#10;错误也是信息 → 自我纠正" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=0.3;entryY=1;" edge="1" parent="1" source="err" target="llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="630" />
+              <mxPoint x="430" y="250" />
+              <mxPoint x="809" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_obs_llm" value="Observation 回流&#10;拼回 messages 再思考" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=0;entryX=0.6;entryY=1;" edge="1" parent="1" source="obs" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_obs_msgs" value="每轮轨迹追加" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.1;exitY=1;entryX=0.17;entryY=0;" edge="1" parent="1" source="obs" target="msgs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_msgs_mem" value="读写&#10;token 预算内" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="msgs" target="memory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_msgs_llm" value="下一轮请求携带&#10;压缩后的历史" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;dashed=1;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=0.45;entryY=1;" edge="1" parent="1" source="msgs" target="llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="445" y="915" />
+              <mxPoint x="445" y="270" />
+              <mxPoint x="843" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_final_user" value="交付结果" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=0;entryX=0.5;entryY=0;" edge="1" parent="1" source="final" target="user">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1565" y="60" />
+              <mxPoint x="95" y="60" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 便签连线 -->
+        <mxCell id="ln_loop" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="n_loop" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_ragtool" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0;exitY=0.3;entryX=1;entryY=0.8;" edge="1" parent="1" source="n_ragtool" target="t_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_wf" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=1;exitY=0.3;entryX=0;entryY=0.8;" edge="1" parent="1" source="n_wf" target="entry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_proto" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n_proto" target="action">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_safe" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n_safe" target="registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_cap" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n_cap" target="t_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ln_mem" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n_mem" target="memory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

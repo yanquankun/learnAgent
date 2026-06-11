@@ -1,0 +1,194 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="concept-map" name="概念图">
+    <mxGraphModel dx="1400" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== 泳道背景框 ===== -->
+        <mxCell id="z_wf" value="Workflow:轻量 Corrective RAG(规则路由)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=none;strokeColor=#999999;strokeWidth=2;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;fontSize=15;fontStyle=1;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="50" y="60" width="900" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="z_ag" value="Agent 子图:create_agent 的内脏 · BlogAgent 图化版" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=none;strokeColor=#999999;strokeWidth=2;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;fontSize=15;fontStyle=1;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="60" width="650" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="z_prod" value="生产三件套:持久化 / 人工介入 / 流式" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=none;strokeColor=#999999;strokeWidth=2;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;fontSize=15;fontStyle=1;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="50" y="820" width="1600" height="330" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Workflow:Corrective RAG ===== -->
+        <mxCell id="start" value="START" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#76e3c8;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="90" y="145" width="100" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="retrieve" value="检索节点&#10;retrieve" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="250" y="140" width="160" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="grade" value="质量评估&#10;合格?" style="shape=rhombus;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f9e79f;strokeColor=#333333;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="480" y="115" width="160" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="generate" value="生成节点&#10;generate" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#d7bde2;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="720" y="140" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="end1" value="END" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#a9dfbf;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="820" y="300" width="110" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="rewrite" value="查询改写节点&#10;rewrite_query" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="250" y="280" width="160" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="note_loop" value="循环必须有上限:&#10;没有上限 = 烧钱的死循环" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="70" y="280" width="165" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note_wf" value="规则路由 = Workflow&#10;节点多、路径明确可预测" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="700" y="62" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Agent 子图 ===== -->
+        <mxCell id="agent_node" value="agent 节点&#10;LLM.bind_tools" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#d7bde2;strokeColor=#333333;strokeWidth=2;fontSize=16;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="118" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="tcond" value="tools_condition&#10;有工具调用?" style="shape=rhombus;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f9e79f;strokeColor=#333333;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="280" width="170" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="toolnode" value="ToolNode&#10;执行工具" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f5b7b1;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="295" width="160" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="end2" value="END" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#a9dfbf;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="470" width="100" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="note_ag" value="模型决定 + 回边 = Agent&#10;能用 Workflow 就别用 Agent" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="450" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ===== State 中央共享状态 ===== -->
+        <mxCell id="state" value="State(共享状态)&#10;TypedDict:所有节点读同一份、写回同一份" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="380" y="665" width="560" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="note_3" value="三要素:State / Node / Edge&#10;建图四步:定义 State → add_node&#10;→ add_edge → compile()" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="70" y="660" width="250" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 生产三件套 ===== -->
+        <mxCell id="ckpt" value="checkpointer&#10;SqliteSaver" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#aed6f1;strokeColor=#333333;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="880" width="130" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="note_ckpt" value="checkpointer 只管存、不管压缩:&#10;滑动窗口 / 摘要仍要自己做&#10;跨进程会话记忆(thread_id)" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1030" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="interrupt" value="interrupt&#10;人工审批闸口" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#f9e79f;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="620" y="890" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="human" value="人类审批者" style="shape=actor;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#76e3c8;strokeColor=#333333;strokeWidth=2;fontSize=12;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="660" y="1030" width="55" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="stream" value="stream 流式出口" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#a9dfbf;strokeColor=#333333;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#222222;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="890" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_stream" value="三种流式:values 全量快照 /&#10;updates 增量 / messages token 级" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#fcf3cf;strokeColor=#999999;strokeWidth=1.5;fontSize=11;fontColor=#555555;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="1020" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="user_final" value="用户" style="shape=actor;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;hachureGap=4;fillColor=#76e3c8;strokeColor=#333333;strokeWidth=2;fontSize=12;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="880" width="55" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 边:Workflow ===== -->
+        <mxCell id="e_st_rt" value="add_edge" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;" edge="1" parent="1" source="start" target="retrieve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rt_gr" value="检索结果" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;" edge="1" parent="1" source="retrieve" target="grade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gr_gen" value="合格" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="grade" target="generate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gen_end" value="最终答案" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.8;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="generate" target="end1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gr_rw" value="不合格" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="grade" target="rewrite">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="307" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_rw_rt" value="改写查询·回流重试(真环,上限 N 次)" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="rewrite" target="retrieve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 边:Agent 子图 ===== -->
+        <mxCell id="e_an_tc" value="模型输出" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="agent_node" target="tcond">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tc_tn" value="有工具调用" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tcond" target="toolnode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tn_an" value="工具结果回流(真环)" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="toolnode" target="agent_node">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1520" y="153" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_tc_end" value="无工具调用" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tcond" target="end2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== State 读写细线 ===== -->
+        <mxCell id="s_rw" value="读 / 写" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=open;startArrow=open;endFill=0;startFill=0;fontSize=11;fontColor=#777777;" edge="1" parent="1" source="state" target="rewrite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_gr" value="读 / 写" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=open;startArrow=open;endFill=0;startFill=0;fontSize=11;fontColor=#777777;exitX=0.39;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="grade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_gen" value="读 / 写" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=open;startArrow=open;endFill=0;startFill=0;fontSize=11;fontColor=#777777;exitX=0.76;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="generate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_ag" value="读 / 写" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=open;startArrow=open;endFill=0;startFill=0;fontSize=11;fontColor=#777777;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="agent_node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 边:生产三件套 ===== -->
+        <mxCell id="e_state_ckpt" value="持久化每步状态(thread_id)" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="ckpt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_int_tn" value="插在危险操作前·批准后才继续执行" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;dashed=1;edgeStyle=orthogonalEdgeStyle;exitX=0.8;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="interrupt" target="toolnode">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="764" y="1000" />
+              <mxPoint x="1665" y="1000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_hu_int" value="批准 / 拒绝" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="human" target="interrupt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_state_str" value="每步更新实时外发" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;exitX=0.9;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_str_user" value="实时推送·打字机效果" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;rounded=1;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;fontSize=12;fontColor=#444444;" edge="1" parent="1" source="stream" target="user_final">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 便签虚线 ===== -->
+        <mxCell id="l_loop" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_loop" target="rewrite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_wf" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_wf" target="grade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_3" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_3" target="state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_ag" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_ag" target="tcond">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_ckpt" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_ckpt" target="ckpt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l_stream" style="sketch=1;curveFitting=1;jiggle=2;hachureGap=4;html=1;dashed=1;strokeColor=#999999;strokeWidth=1.5;endArrow=none;" edge="1" parent="1" source="note_stream" target="stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
